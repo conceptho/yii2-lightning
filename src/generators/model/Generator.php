@@ -63,7 +63,7 @@ class Generator extends \yii\gii\generators\model\Generator
         return $files;
     }
 
-    private function generateProperties($table)
+    protected function generateProperties($table)
     {
         $properties = [];
         foreach ($table->columns as $column) {
