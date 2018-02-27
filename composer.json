@@ -1,0 +1,27 @@
+{
+  "name": "conceptho/yii2-lightning",
+  "description": "Conceptho Gii Generators",
+  "keywords": ["gii", "conceptho", "yii2", "yii"],
+  "license": "MIT",
+  "type": "yii2-extension",
+  "version": "0.1.0",
+  "minimum-stability": "stable",
+  "authors": [
+    {
+      "name": "Andre Metzen",
+      "email": "metzen@conceptho.com"
+    }
+  ],
+  "require": {
+    "yiisoft/yii2": "*",
+    "conceptho/yii2-service-layer": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "conceptho\\lightning\\": "src"
+    }
+  },
+  "extra": {
+    "bootstrap": "conceptho\\lightning\\Bootstrap"
+  }
+}
