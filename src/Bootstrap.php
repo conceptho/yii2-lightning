@@ -13,24 +13,25 @@ class Bootstrap implements BootstrapInterface
             'class' => 'conceptho\lightning\generators\model\Generator',
             'baseClass' => 'yii\db\ActiveRecord',
             'generateQuery' => true,
-            'queryNs' => '@app\models\query',
+            'queryNs' => 'app\models\query',
             'enableI18N' => true,
             'messageCategory' => 'models',
             'templates' => [
-                'default' => '@app/lightning/generators/model/default'
+                'default' => '@lightning/generators/model/default'
             ]
         ],
         'conceptho-crud' => [
             'class' => 'conceptho\lightning\generators\crud\Generator',
             'enableI18N' => true,
             'templates' => [
-                'default' => '@app/lightning/generators/crud/default'
+                'default' => '@lightning/generators/crud/default'
             ]
         ]
     ];
 
     public function bootstrap($app)
     {
+        \Yii::setAlias('lightning', __DIR__);
         if ($app->hasModule('gii')) {
             $module = $app->getModule('gii');
             $module->generators = ArrayHelper::merge($module->generators, $this->customGenerators);
