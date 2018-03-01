@@ -36,15 +36,15 @@ use <?= ltrim($generator->searchModelClass, '\\') . (isset($searchModelAlias) ? 
 <?php else: ?>
 use yii\data\ActiveDataProvider;
 <?php endif; ?>
-use <?= ltrim($generator->baseControllerClass, '\\') ?>;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use conceptho\ServiceLayer\Controller;
 /**
  * <?= $controllerClass ?> implements the CRUD actions for <?= $modelClass ?> model.
  */
 class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->baseControllerClass) . "\n" ?>
 {
+    public $className = '<?= $generator->modelClass ?>';
     /**
      * @inheritdoc
      */
@@ -104,15 +104,21 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      */
     public function actionCreate()
     {
-        $model = new <?= $modelClass ?>();
+        $model = $this->model;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', <?= $urlParams ?>]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+        $body = function($model) {
+            return Yii::$app->service-><?=yii\helpers\Inflector::variablize($modelClass)?>->create($model);
+        };
+
+        $success = function($response, $model, $controller) {
+            $controller->redirect(['view', <?= $urlParams ?>]);
+        };
+
+        $this->runService($model, $body, $success);
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -123,15 +129,17 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      */
     public function actionUpdate(<?= $actionParams ?>)
     {
-        $model = $this->findModel(<?= $actionParams ?>);
+        $model = $this->loadModel(<?= $actionParams ?>);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', <?= $urlParams ?>]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
+        $body = function($model) {
+            return Yii::$app->service-><?=yii\helpers\Inflector::variablize($modelClass)?>->update($model);
+        };
+
+        $this->runService($model, $body);
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -142,8 +150,9 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      */
     public function actionDelete(<?= $actionParams ?>)
     {
-        $this->findModel(<?= $actionParams ?>)->delete();
+        $model = $this->loadModel();
 
+        Yii::$app->service-><?=yii\helpers\Inflector::variablize($modelClass)?>->delete($model);
         return $this->redirect(['index']);
     }
 

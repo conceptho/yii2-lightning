@@ -14,7 +14,6 @@ namespace <?= $generator->ns ?>;
 
 use conceptho\ServiceLayer\Service;
 
-class <?php echo $className; ?> extends Service
-{
+class <?php echo $className; ?> extends base\<?= $className."\n" ?>{
 
 }
