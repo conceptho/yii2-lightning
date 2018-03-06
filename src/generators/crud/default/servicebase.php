@@ -30,7 +30,12 @@ class <?php echo $className; ?> extends Service
 
     public function actionDelete(<?php echo $className; ?>Model $<?php echo $modelName; ?>)
     {
-        $<?php echo $modelName; ?>->deleted = 1;
+        <?php if(in_array('deleted',$columns)):?>$<?php echo $modelName; ?>->deleted = 1;
         return new Response($this->saveModel($<?php echo $modelName; ?>), ['<?php echo $modelName; ?>' => $<?php echo $modelName; ?>]);
     }
 }
+        <?php else: ?>
+            return new Response($<?php echo $modelName; ?>->delete(), ['<?php echo $modelName; ?>' => $<?php echo $modelName; ?>]);
+    }
+}
+        <?php endif; ?>

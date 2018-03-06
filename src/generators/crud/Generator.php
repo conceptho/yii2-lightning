@@ -29,7 +29,8 @@ class Generator extends \yii\gii\generators\crud\Generator
 
         $params = [
             'modelName' => Inflector::camel2id(StringHelper::basename($this->modelClass)),
-            'className' => ucwords(Inflector::camel2id(StringHelper::basename($this->modelClass)),"_"),
+            'className' => ucwords(Inflector::camelize(StringHelper::basename($this->modelClass)),"_"),
+            'columns' => $this->getColumnNames()
         ];
 
         $files[] = new CodeFile(
