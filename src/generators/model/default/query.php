@@ -31,10 +31,12 @@ namespace <?= $generator->queryNs ?>;
  */
 class <?= $className ?> extends <?= '\\' . ltrim($generator->queryBaseClass, '\\') . "\n" ?>
 {
-    /*public function active()
+<?php if(in_array('deleted', array_keys($properties))): ?>
+    public function active()
     {
-        return $this->andWhere('[[status]]=1');
-    }*/
+        return $this->andWhere('[[deleted]]=0');
+    }
+ <?php endif; ?>
 
     /**
      * @inheritdoc
