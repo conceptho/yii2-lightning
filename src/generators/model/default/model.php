@@ -19,8 +19,6 @@ echo "<?php\n";
 
 namespace <?= $generator->ns ?>;
 
-use Yii;
-
 /**
  * This is the model class for table "<?= $generator->generateTableName($tableName) ?>".
  *
@@ -34,6 +32,6 @@ use Yii;
 <?php endforeach; ?>
 <?php endif; ?>
  */
-class <?= $className ?> extends base\<?= $className . "\n" ?>{
-
+class <?= $className ?> extends base\<?= $className . "\n" ?>
+{
 }

@@ -36,7 +36,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->queryBaseClass, '\\
     {
         return $this->andWhere('[[deleted]]=0');
     }
- <?php endif; ?>
+<?php endif; ?>
 
     /**
      * @inheritdoc

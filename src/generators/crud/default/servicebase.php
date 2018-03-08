@@ -34,8 +34,8 @@ class <?php echo $className; ?> extends Service
         return new Response($this->saveModel($<?php echo $modelName; ?>), ['<?php echo $modelName; ?>' => $<?php echo $modelName; ?>]);
     }
 }
-        <?php else: ?>
+<?php else: ?>
             return new Response($<?php echo $modelName; ?>->delete(), ['<?php echo $modelName; ?>' => $<?php echo $modelName; ?>]);
     }
 }
-        <?php endif; ?>
+<?php endif; ?>

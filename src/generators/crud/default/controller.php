@@ -39,6 +39,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use conceptho\ServiceLayer\Controller;
+
 /**
  * <?= $controllerClass ?> implements the CRUD actions for <?= $modelClass ?> model.
  */
@@ -106,11 +107,11 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
     {
         $model = $this->model;
 
-        $body = function($model) {
+        $body = function ($model) {
             return Yii::$app->service-><?=yii\helpers\Inflector::variablize($modelClass)?>->create($model);
         };
 
-        $success = function($response, $model, $controller) {
+        $success = function ($response, $model, $controller) {
             $controller->redirect(['view', <?= $urlParams ?>]);
         };
 
@@ -131,7 +132,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
     {
         $model = $this->loadModel(<?= $actionParams ?>);
 
-        $body = function($model) {
+        $body = function ($model) {
             return Yii::$app->service-><?=yii\helpers\Inflector::variablize($modelClass)?>->update($model);
         };
 
@@ -178,8 +179,7 @@ if (count($pks) === 1) {
 ?>
         if (($model = <?= $modelClass ?>::findOne(<?= $condition ?>)) !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
         }
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }
